@@ -15,4 +15,9 @@ module.exports = {
     entitiesDir: "/src/core/data/database/entities",
     migrationsDir: "/src/core/data/database/migrations",
   },
+  extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
 };
