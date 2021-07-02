@@ -5,7 +5,7 @@ class Database {
 
   public getConnection(): Connection {
     if (!Database.connection) {
-      throw new Error("Conexão não aberta");
+      throw new Error("connection is not defined");
     }
 
     return Database.connection;
