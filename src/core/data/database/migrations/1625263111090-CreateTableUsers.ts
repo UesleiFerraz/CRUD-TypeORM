@@ -35,11 +35,13 @@ export class CreateTableUsers1625263111090 implements MigrationInterface {
             isNullable: false,
           },
         ],
-      })
+      }),
+      true
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropTable("users", true, true, true);
+    await queryRunner.dropSchema("BDD_final", true, true);
   }
 }
