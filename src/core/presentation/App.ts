@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import Database from "../data/connections/Database";
+import { default as UserRoutes } from "../../features/users/routers/Routes";
 
 class App {
   readonly #express: express.Application;
@@ -25,7 +26,9 @@ class App {
     this.#express.use(express.urlencoded({ extended: false }));
   }
 
-  private routes() {}
+  private routes() {
+    this.#express.use(UserRoutes);
+  }
 
   public start(port: number) {
     this.#express.listen(port, () => console.log("server on"));

@@ -4,9 +4,11 @@ import {
   BeforeUpdate,
   Column,
   Entity,
+  OneToMany,
   PrimaryColumn,
 } from "typeorm";
 import { v4 as uuid } from "uuid";
+import { Scrap } from "./Scrap";
 
 interface IUser {
   id?: string;
@@ -23,13 +25,16 @@ export class User extends BaseEntity {
   username: string;
 
   @Column()
-  password: string;
+  password?: string;
 
   @Column({ name: "created_at", type: "timestamp" })
   createdAt: Date;
 
   @Column({ name: "updated_at", type: "timestamp" })
   updatedAt: Date;
+
+  @OneToMany(() => Scrap, scrap => scrap.user)
+  scraps: Scrap[];
 
   constructor(props: IUser) {
     super();
