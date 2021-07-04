@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 import { User } from "../../../core/data/database/entities/User";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+
+dotenv.config({ path: "../../../../.env" });
 
 class UserController {
   public async index(req: Request, res: Response): Promise<Response> {
@@ -21,15 +24,19 @@ class UserController {
       return res.status(404).json({ error: "id not informed" });
     }
 
-    const userExists = await User.findOne(id);
+    try {
+      const userExists = await User.findOne(id);
 
-    if (!userExists) {
-      return res.status(404).json({ error: "user not found" });
+      if (!userExists) {
+        return res.status(404).json({ error: "user not found" });
+      }
+
+      delete userExists.password;
+
+      return res.json({ user: userExists });
+    } catch {
+      return res.status(404).json({ error: "id not found" });
     }
-
-    delete userExists.password;
-
-    return res.json({ user: userExists });
   }
 
   public async store(req: Request, res: Response): Promise<Response> {
@@ -78,10 +85,10 @@ class UserController {
         return res.status(401).json({ error: "username or password invalid" });
       }
 
-      token = jwt.sign({ id: userExists.id }, secret);
+      token = jwt.sign({ id: userExists.id }, secret, { expiresIn: "1h" });
     }
 
-    return res.json(token);
+    return res.json({ token });
   }
 }
 
