@@ -15,6 +15,7 @@ interface IScrap {
   id?: string;
   title: string;
   description: string;
+  userId: string;
 }
 
 @Entity({ name: "scraps" })
@@ -27,6 +28,9 @@ export class Scrap extends BaseEntity {
 
   @Column({ type: "text" })
   description: string;
+
+  @Column({ name: "user_id" })
+  userId: string;
 
   @Column({ name: "created_at", type: "timestamp" })
   createdAt: Date;

@@ -3,4 +3,4 @@ import App from "./core/presentation/App";
 
 const port = 3000;
 
-App.init().then(_ => App.start(port));
+App.init().then(() => App.start(port));

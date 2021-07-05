@@ -15,6 +15,7 @@ class Database {
     if (!Database.connection) {
       try {
         Database.connection = await createConnection();
+        console.log("📦 Database connected");
       } catch (error) {
         console.error(error);
       }

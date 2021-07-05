@@ -3,7 +3,7 @@ import { Scrap } from "../../../core/data/database/entities/Scrap";
 
 class ScrapController {
   public async index(req: Request, res: Response): Promise<Response> {
-    const scraps = await Scrap.find({ where: { user_id: req.userId } });
+    const scraps = await Scrap.find({ where: { userId: req.userId } });
 
     return res.json(scraps);
   }
@@ -17,7 +17,7 @@ class ScrapController {
 
     try {
       const scrapExists = await Scrap.findOne({
-        where: { id, user_id: req.userId },
+        where: { id, userId: req.userId },
       });
 
       if (!scrapExists) {
@@ -43,7 +43,11 @@ class ScrapController {
         .json({ error: "title must have in maximum 50 characters" });
     }
 
-    const scrap = await new Scrap({ title, description }).save();
+    const scrap = await new Scrap({
+      title,
+      description,
+      userId: req.userId,
+    }).save();
 
     return res.json({ scrap });
   }
@@ -70,7 +74,7 @@ class ScrapController {
         return res.status(404).json({ error: "scrap not found" });
       }
 
-      if (scrapExists.user.id !== userId) {
+      if (scrapExists.userId !== userId) {
         return res
           .status(401)
           .json({ error: "you dont have permission to update this scrap" });
@@ -82,7 +86,8 @@ class ScrapController {
       await scrapExists.save();
 
       return res.json({ scrap: scrapExists });
-    } catch {
+    } catch (error) {
+      console.log(error);
       return res.status(404).json({ error: "scrap not found" });
     }
   }
@@ -101,7 +106,7 @@ class ScrapController {
         return res.status(404).json({ error: "scrap not found" });
       }
 
-      if (scrapExists.user.id !== req.userId) {
+      if (scrapExists.userId !== req.userId) {
         return res
           .status(401)
           .json({ error: "you dont have permission to delete this scrap" });
