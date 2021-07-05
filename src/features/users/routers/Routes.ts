@@ -5,10 +5,10 @@ class Routes {
   public init(): Router {
     const routes = Router();
 
-    routes.get("/user", UserController.index);
-    routes.get("/user/:id", UserController.show);
-    routes.post("/user", UserController.store);
-    routes.post("/authenticate", UserController.authenticate);
+    routes.get("/users", UserController.index);
+    routes.get("/users/:id", UserController.show);
+    routes.post("/users", UserController.store);
+    routes.post("/auth", UserController.authenticate);
 
     return routes;
   }

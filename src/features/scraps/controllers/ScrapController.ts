@@ -9,15 +9,15 @@ class ScrapController {
   }
 
   public async show(req: Request, res: Response): Promise<Response> {
-    const { scrapId } = req.params;
+    const { id } = req.params;
 
-    if (!scrapId) {
+    if (!id) {
       res.status(400).json({ error: "parameters invalid" });
     }
 
     try {
       const scrapExists = await Scrap.findOne({
-        where: { id: scrapId, user_id: req.userId },
+        where: { id, user_id: req.userId },
       });
 
       if (!scrapExists) {
@@ -114,3 +114,5 @@ class ScrapController {
     }
   }
 }
+
+export default new ScrapController();

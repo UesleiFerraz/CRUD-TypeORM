@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import Database from "../data/connections/Database";
 import { default as UserRoutes } from "../../features/users/routers/Routes";
+import { default as ScrapRoutes } from "../../features/scraps/routers/Routes";
 
 class App {
   readonly #express: express.Application;
@@ -28,6 +29,7 @@ class App {
 
   private routes() {
     this.#express.use(UserRoutes);
+    this.#express.use(ScrapRoutes);
   }
 
   public start(port: number) {
