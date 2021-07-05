@@ -1,15 +1,16 @@
 import { Router } from "express";
+import userAuth from "../../users/middlewares/userAuth";
 import ScrapController from "../controllers/ScrapController";
 
 class Routes {
   public init(): Router {
     const routes = Router();
 
-    routes.get("/scraps", ScrapController.index);
-    routes.get("/scraps/:id", ScrapController.show);
-    routes.post("/scraps", ScrapController.store);
-    routes.put("/scraps/:id", ScrapController.update);
-    routes.delete("/scraps/:id", ScrapController.delete);
+    routes.get("/scraps", userAuth, ScrapController.index);
+    routes.get("/scraps/:id", userAuth, ScrapController.show);
+    routes.post("/scraps", userAuth, ScrapController.store);
+    routes.put("/scraps/:id", userAuth, ScrapController.update);
+    routes.delete("/scraps/:id", userAuth, ScrapController.delete);
 
     return routes;
   }
