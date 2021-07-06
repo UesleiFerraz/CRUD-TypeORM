@@ -38,9 +38,9 @@ class ScrapController {
     }
 
     if (title.length > 50) {
-      return res
-        .status(400)
-        .json({ error: "title must have in maximum 50 characters" });
+      return res.status(400).json({
+        error: "title must have in maximum 50 characters",
+      });
     }
 
     const scrap = await new Scrap({
@@ -62,9 +62,9 @@ class ScrapController {
     }
 
     if (title.length > 50) {
-      return res
-        .status(400)
-        .json({ error: "title must have in maximum 50 characters" });
+      return res.status(400).json({
+        error: "title must have in maximum 50 characters",
+      });
     }
 
     try {
@@ -75,9 +75,9 @@ class ScrapController {
       }
 
       if (scrapExists.userId !== userId) {
-        return res
-          .status(401)
-          .json({ error: "you dont have permission to update this scrap" });
+        return res.status(401).json({
+          error: "you dont have permission to update this scrap",
+        });
       }
 
       scrapExists.title = title;
@@ -107,9 +107,9 @@ class ScrapController {
       }
 
       if (scrapExists.userId !== req.userId) {
-        return res
-          .status(401)
-          .json({ error: "you dont have permission to delete this scrap" });
+        return res.status(401).json({
+          error: "you dont have permission to delete this scrap",
+        });
       }
 
       await Scrap.delete(id);
