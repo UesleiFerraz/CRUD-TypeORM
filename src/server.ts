@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import App from "./core/presentation/App";
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-App.init().then(() => App.start(port));
+App.init().then(() => App.start(Number(process.env.PORT) || 3000));
