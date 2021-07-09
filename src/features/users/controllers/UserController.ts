@@ -46,12 +46,6 @@ class UserController {
       return res.status(400).json({ error: "parameters invalid" });
     }
 
-    const userAlreadyExists = await User.findOne({ where: { username } });
-
-    if (userAlreadyExists) {
-      return res.status(409).json({ error: "username already in use" });
-    }
-
     const hashPassword = await bcrypt.hash(password, 8);
     const user = await new User({ username, password: hashPassword }).save();
     delete user.password;

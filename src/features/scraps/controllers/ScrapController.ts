@@ -5,7 +5,7 @@ class ScrapController {
   public async index(req: Request, res: Response): Promise<Response> {
     const scraps = await Scrap.find({ where: { userId: req.userId } });
 
-    return res.json(scraps);
+    return res.json({ scraps });
   }
 
   public async show(req: Request, res: Response): Promise<Response> {

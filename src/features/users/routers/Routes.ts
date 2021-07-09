@@ -1,5 +1,6 @@
 import { Router } from "express";
 import UserController from "../controllers/UserController";
+import userAlreadyExists from "../middlewares/userAlreadyExists";
 import userAuth from "../middlewares/userAuth";
 
 class Routes {
@@ -8,7 +9,7 @@ class Routes {
 
     routes.get("/users", userAuth, UserController.index);
     routes.get("/users/:id", userAuth, UserController.show);
-    routes.post("/users", UserController.store);
+    routes.post("/users", userAlreadyExists, UserController.store);
     routes.post("/auth", UserController.authenticate);
 
     return routes;
