@@ -28,9 +28,6 @@ class App {
   }
 
   private routes() {
-    this.#express.get("/", (req, res) => {
-      return res.send("oi");
-    });
     this.#express.use(UserRoutes);
     this.#express.use(ScrapRoutes);
   }
