@@ -3,7 +3,10 @@ import { Scrap } from "../../../core/data/database/entities/Scrap";
 
 class ScrapController {
   public async index(req: Request, res: Response): Promise<Response> {
-    const scraps = await Scrap.find({ where: { userId: req.userId } });
+    const scraps = await Scrap.find({
+      where: { userId: req.userId },
+      order: { createdAt: "DESC" },
+    });
 
     return res.json({ scraps });
   }
